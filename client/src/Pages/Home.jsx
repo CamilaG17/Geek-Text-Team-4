@@ -36,7 +36,7 @@ const Home = () => {
         
         {!loading && !error && (
           <div className="book-grid">
-            {books.length > 0 ? (
+            {books.length ? (
               books.map((book) => (
                 <div className="book-card" key={book.id}>
                   <div className="book-thumbnail"></div>
