@@ -2,7 +2,7 @@ package com.example.BookStore;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "bookstore")
+@Table(name = "book")
 public class Book {
 
     @Id
@@ -19,12 +19,12 @@ public class Book {
     private String genre;
     @Column(name="yearpublished")
     private int year;
-    @Column(name="copies")
+    @Column(name="copiessold")
     private Long copiesSold;
 
 
     @ManyToOne
-    @JoinColumn(name="author_id")
+    @JoinColumn(name="authorid")
     private Author author;
 
 
