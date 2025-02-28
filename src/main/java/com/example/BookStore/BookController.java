@@ -1,11 +1,10 @@
 package com.example.BookStore;
 import java.util.List;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -34,7 +33,6 @@ public class BookController {
         return bookService.saveBook(book);
     }
 
-
     @GetMapping("/authors")
     public List<Author> getAllAuthors() {
         return authorService.getAllAuthors();
@@ -49,5 +47,13 @@ public class BookController {
     public Author addAuthor(@RequestBody Author author) {
         return authorService.saveAuthor(author);
     }
+    @GetMapping("/books/by-author/{lastName}")
+    public ResponseEntity<List<Book>> getBooksByAuthor(@PathVariable String lastName) {
+    List<Book> books = bookService.getBooksByAuthor(lastName);
+    if (!books.isEmpty()) {
+        return ResponseEntity.ok(books);
+    } else {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.emptyList());
+    }
+    }
 }
-

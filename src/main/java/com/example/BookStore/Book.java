@@ -9,6 +9,10 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long isbn;
 
+    @ManyToOne
+    @JoinColumn(name = "authorid", nullable = false) 
+    private Author author;
+
     @Column(name="bookname")
     private String bookName;
     @Column(name="bookdescription")
@@ -22,10 +26,6 @@ public class Book {
     @Column(name="copiessold")
     private Long copiesSold;
 
-
-    @ManyToOne
-    @JoinColumn(name="authorid")
-    private Author author;
 
 
     public Book(){}

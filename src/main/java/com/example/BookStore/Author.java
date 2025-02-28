@@ -1,4 +1,5 @@
 package com.example.BookStore;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -21,9 +22,9 @@ public class Author {
     @Column(name="publisher")
     private String publisher;
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    private List<Book> books;
+    private List<Book> books = new ArrayList<>();
 
     public void setId(Long id){
         this.id=id;
