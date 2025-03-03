@@ -6,7 +6,7 @@ export default function Test() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch('api/test')
+        fetch('/api/books')
             .then(res => {
                 if (!res.ok) {
                     throw new Error('Network response was not ok');
