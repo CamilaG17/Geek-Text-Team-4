@@ -6,12 +6,12 @@ export default function Test() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch('http://localhost:8080/test')
+        fetch('api/test')
             .then(res => {
                 if (!res.ok) {
                     throw new Error('Network response was not ok');
                 }
-                return res.text();
+                return res.json();
             })
             .then(data => {
                 setData(data);
@@ -33,7 +33,7 @@ export default function Test() {
 
     return (
         <>
-            <div>This is the data from the server: <span className='test'>{data}</span></div> 
+            <div>This is the data from the server: <pre>{JSON.stringify(data, null, 2)}</pre></div> 
         </>
     );
 }

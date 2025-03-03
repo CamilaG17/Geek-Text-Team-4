@@ -1,4 +1,4 @@
-package com.example.BookStore;
+package com.example.BookStore.BookDetails;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
