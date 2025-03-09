@@ -1,5 +1,8 @@
 package com.example.BookStore.Shoppingcart;
 
+import com.example.BookStore.UserManagement.User;
+import com.example.BookStore.BookDetails.Book;
+
 import jakarta.persistence.*;
 import org.apache.catalina.User;
 
@@ -14,11 +17,11 @@ public class ShoppingCartItem {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "username", referencedColumnName = "username", nullable = false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "book_id", nullable = false)
+    @JoinColumn(name = "bookname", nullable = false)
     private Book book;
 
     private int quantity;
