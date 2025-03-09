@@ -1,7 +1,10 @@
-package main.java.com.example.BookStore.Shoppingcart;
+package com.example.BookStore.Shoppingcart;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.example.BookStore.BookDetails.Book;
+
 import java.util.List;
 
 @Service
@@ -14,7 +17,7 @@ public class ShoppingCartService {
     public double calculateCartSubtotal(Long userId) {
         List<ShoppingCartItem> cartItems = shoppingCartRepository.findByUserId(userId);
         return cartItems.stream()
-                        .mapToDouble(item -> item.getBook().getPrice() * item.getQuantity())
+                        .mapToDouble(item -> item.getBook().getprice() * item.getQuantity())
                         .sum();
     }
 
