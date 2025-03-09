@@ -28,6 +28,27 @@ public class Book {
     @JoinColumn(name="authorid")
     private Author author;
 
+    private double rating;
+
+    // getters and setters
+    public double getRating() {
+        return rating;
+    }
+    private String publisher;
+
+    // getters and setters
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
 
     public Book(){}
 
