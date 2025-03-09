@@ -1,6 +1,10 @@
 package com.example.BookStore.Shoppingcart;
 
 import jakarta.persistence.*;
+import org.apache.catalina.User;
+
+import com.example.BookStore.BookDetails.Book;
+
 
 @Entity
 public class ShoppingCartItem {

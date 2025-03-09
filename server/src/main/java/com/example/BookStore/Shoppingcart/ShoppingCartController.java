@@ -2,6 +2,8 @@ package com.example.BookStore.Shoppingcart;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.example.BookStore.BookDetails.Book;
+
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
@@ -12,7 +14,7 @@ import java.util.HashMap;
 public class ShoppingCartController {
 
     @Autowired
-    private ShoppingCartService shoppingCartService;
+    private main.java.com.example.BookStore.Shoppingcart.ShoppingCartService shoppingCartService;
 
     // 1. Get the subtotal of the books in the shopping cart for a user
     @GetMapping("/{userId}/subtotal")

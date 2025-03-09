@@ -1,7 +1,11 @@
 package main.java.com.example.BookStore.Shoppingcart;
 
+import com.example.BookStore.Shoppingcart.ShoppingCartItem;
+import com.example.BookStore.Shoppingcart.ShoppingCartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.example.BookStore.BookDetails.Book;
 import java.util.List;
 
 @Service

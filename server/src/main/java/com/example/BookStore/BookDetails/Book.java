@@ -40,16 +40,16 @@ public class Book {
         this.copiesSold=copiesSold;
     }
 
-    public Author getauthor(){
+    public Author getAuthor(){
         return author;
     }
     public void setAuthor(Author author){
         this.author=author;
     }
-    public void setbookName(String bookName){
+    public void setBookName(String bookName){
         this.bookName = bookName;
     }
-    public String getbookName(){
+    public String getBookName(){
         return bookName;
     }
     public void setISBN(Long isbn){
@@ -58,34 +58,34 @@ public class Book {
     public Long getISBN(){
         return this.isbn;
     }
-    public void setbookDescription(String bookDescription){
+    public void setBookDescription(String bookDescription){
         this.bookDescription= bookDescription;
     }
-    public String getbookDescription(){
+    public String getBookDescription(){
         return this.bookDescription;
     }
-    public void setprice(double price){
+    public void setPrice(double price){
         this.price=price;
     }
-    public double getprice(){
+    public double getPrice(){
         return this.price;
     }
-    public void setgenre(String genre){
+    public void setGenre(String genre){
         this.genre=genre;
     }
-    public String getgenre(){
+    public String getGenre(){
         return this.genre;
     }
-    public void setyear(int year){
+    public void setYear(int year){
         this.year=year;
     }
-    public int getyear(){
+    public int getYear(){
         return this.year;
     }
-    public void setcopiesSold(Long copiesSold){
+    public void setCopiesSold(Long copiesSold){
         this.copiesSold=copiesSold;
     }
-    public Long getcopiesSold(){
+    public Long getCopiesSold(){
         return this.copiesSold;
     }
 }
