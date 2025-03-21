@@ -4,9 +4,8 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "book")
 public class Book {
-
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long isbn;
 
     @Column(name="bookname")
@@ -39,17 +38,17 @@ public class Book {
         this.year=year;
         this.copiesSold=copiesSold;
     }
-
+   // Getters and Setters
     public Author getauthor(){
         return author;
     }
     public void setAuthor(Author author){
         this.author=author;
     }
-    public void setbookName(String bookName){
+    public void setBookName(String bookName){
         this.bookName = bookName;
     }
-    public String getbookName(){
+    public String getBookName(){
         return bookName;
     }
     public void setISBN(Long isbn){
