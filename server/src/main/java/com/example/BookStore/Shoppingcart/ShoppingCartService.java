@@ -38,13 +38,13 @@ public class ShoppingCartService {
                         .toList();
     }
 
-    public void addToCart(String userId, Long bookId) {
-        System.out.println("🔍 addToCart called with userId = " + userId + ", bookId = " + bookId);
-        
+    public void addToCart(String userId, String isbn){
+        System.out.println("🔍 addToCart called with userId = " + userId + ", bookId = " + isbn);
+
         User user = userRepository.findById(userId)
                   .orElseThrow(() -> new RuntimeException("User not found"));
 
-        Book book = bookRepository.findById(bookId)
+        Book book = bookRepository.findByBookName(isbn)
                   .orElseThrow(() -> new RuntimeException("Book not found"));
     
         ShoppingCartItem item = new ShoppingCartItem();
