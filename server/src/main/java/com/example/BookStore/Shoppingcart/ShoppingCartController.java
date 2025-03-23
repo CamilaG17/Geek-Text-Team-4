@@ -45,8 +45,9 @@ public class ShoppingCartController {
 
     // 3. Add a book to the shopping cart
     @PostMapping("/add")
-    public ResponseEntity<?> addBookToCart(@RequestParam String userId, @RequestParam Long bookId) {
-        shoppingCartService.addToCart(userId, bookId);
+    public ResponseEntity<?> addBookToCart(@RequestParam String userId, @RequestParam String isbn) {
+        shoppingCartService.addToCart(userId, isbn);
         return ResponseEntity.ok().build();
     }
+
 }
