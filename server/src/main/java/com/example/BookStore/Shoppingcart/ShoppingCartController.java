@@ -3,6 +3,8 @@ package com.example.BookStore.Shoppingcart;
 import org.springframework.web.bind.annotation.*;
 import com.example.BookStore.BookDetails.Book;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
@@ -28,5 +30,12 @@ public class ShoppingCartController {
     @GetMapping("/{username}/books")
     public List<Book> getBooksInCart(@PathVariable String username) {
         return shoppingCartService.getBooksInCart(username);
+    }
+
+    // 3. Add a book to the shopping cart
+    @PostMapping("/add")
+    public ResponseEntity<?> addBookToCart(@RequestParam String userId, @RequestParam Long bookId) {
+        shoppingCartService.addToCart(userId, bookId);
+        return ResponseEntity.ok().build();
     }
 }
