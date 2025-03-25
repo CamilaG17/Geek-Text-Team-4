@@ -1,6 +1,9 @@
 package com.example.BookStore.BookBrowseSort;
 
 import com.example.BookStore.BookDetails.Book;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -15,12 +18,13 @@ public interface BrowseSortRepo extends JpaRepository<Book, Long> {
     // Find books by genre
     List<Book> findByGenre(@Param("genre") String genre);
 
-    // Find books with ratings greater than or equal value
-    @Query("SELECT b, r FROM Book b JOIN BookRatingInfo r ON b.isbn = r.bookID WHERE r.rating = :rating")
+    // Find books with ratings equal to value
+    @Query("SELECT b, r FROM Book b, BookRatingInfo r WHERE b.isbn = r.bookID AND r.rating = :rating")
     List<Object[]> findBooksWithRatingDetails(@Param("rating") int rating);
-    // Get top 10 best-selling books
+    
+    // Get top selling books - using correct method name to match the DESC sorting
     @Query("SELECT b FROM Book b ORDER BY b.copiesSold DESC")
-    List<Book> findTop10ByOrderByCopiesSoldDesc();
+    Page<Book> findTopSellingBooks(Pageable pageable);
 
     // Apply discount to books by publisher
     @Transactional

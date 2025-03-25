@@ -8,21 +8,16 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@Table(name = "wishlistid")
+@Table(name = "wishlist")
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class Wishlist {
     @Id
     @Column(name = "wishlistid")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int wishlistId;
-
-    @Column(name = "isbn")
-    private String bookId;
+    private int wishlistid;  
+    private Long isbn;      
 
     @Column(name = "username")
-    private String userId;
-
-
+    private String username; 
 }

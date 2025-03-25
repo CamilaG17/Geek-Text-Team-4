@@ -4,6 +4,7 @@ import com.example.BookStore.BookDetails.Book;
 import com.example.BookStore.BookRating.BookRatingInfo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -30,7 +31,8 @@ public class BrowseSortService {
 
     // Get top selling books
     public List<Book> getTopSellingBooks() {
-        return browseSortRepo.findTop10ByOrderByCopiesSoldDesc();
+        PageRequest topTen = PageRequest.of(0, 10);
+        return browseSortRepo.findTopSellingBooks(topTen).getContent();
     }
     // Get books by rating with rating information
     public List<Map<String, Object>> getBooksByRating(int rating) {
