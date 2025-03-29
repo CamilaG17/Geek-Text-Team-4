@@ -34,7 +34,7 @@
   
   .book-thumbnail {
     height: 265px;
-    background-image: url('../assets/scroll.png');
+    background-image: url('/scroll.png');
     margin-bottom: 10px;
     background-size:cover;
     background-position: center;

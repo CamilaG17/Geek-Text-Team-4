@@ -1,10 +1,10 @@
 import React from 'react'
 import './Navbar.css' // Importing the CSS file for the Navbar component
-import logo_icon from '../../assets/logo.png'; // Importing the logo icon
-import search_icon from '../../assets/search.png'; // Importing the search icon
-import wishlist_icon from '../../assets/wishlist.png'; // Importing the notification icon
-import profile_icon from '../../assets/profile.png'; // Importing the user profile icon
-import cart_icon from '../../assets/Cart.png'; // Importing the cart icon
+import logo_icon from '/logo.png'; // Importing the logo icon
+import search_icon from '/search.png'; // Importing the search icon
+import wishlist_icon from '/wishlist.png'; // Importing the notification icon
+import profile_icon from '/profile.png'; // Importing the user profile icon
+import cart_icon from '/Cart.png'; // Importing the cart icon
 
 // Navbar component definition
 const Navbar = () => {
@@ -13,7 +13,10 @@ const Navbar = () => {
     <nav className='flex-div'>
       
       <div className='nav-left flex-div'>
-      
+      {
+        /* I moved the logos to public folder cause thats convention.
+        Also the convention is to inline like src="/logo.png" instead of importing it like we did before. */ 
+      }
         <img className='Logo-icon' src={logo_icon} alt="Logo Icon" /> 
       </div>
   
