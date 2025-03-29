@@ -13,6 +13,7 @@ const App = () => {
       <div className="main-content" style={{ marginTop: '80px', padding: '20px' }}>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
       </div>
     </div>
