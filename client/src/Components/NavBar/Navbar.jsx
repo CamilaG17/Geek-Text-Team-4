@@ -38,8 +38,14 @@ const Navbar = () => {
         <span className="profile-text">Profile</span>
     </div>
     <div className ="cart-container">
+    
+    <div onClick={() => window.location.href='/cart'}> {/* Redirect to cart page on click */} 
+    
       <img className ="cart" src="cart.png" alt="Cart Icon"/>
       <span className ="cart-text">Cart</span>
+      
+      </div>
+      
     </div>
 </div>
     <div className="nav-bottom">

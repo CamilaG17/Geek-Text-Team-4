@@ -8,6 +8,7 @@ import './App.css';
 const App = () => {
   console.log("App rendering");
   
+  
   return (
     <div className="app-container">
       <Navbar />
