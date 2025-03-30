@@ -1,4 +1,5 @@
 package com.example.BookStore.UserManagement;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +18,6 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    // Username is the primary key for the user table
     public Optional<User> findUserById(String username) {
         return userRepository.findById(username);
     }
@@ -25,5 +25,37 @@ public class UserService {
     public Optional<User> findUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
-// TODO Add more methods here for user management such as updating user information, deleting a user, etc.
+
+    public void saveUser(User user) {
+        userRepository.save(user);
+    }
+
+    public boolean updateUser(String username, User user) {
+        if (userRepository.existsById(username)) {
+            user.setUsername(username); // Ensure username is not changed
+            userRepository.save(user);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deleteUser(String username) {
+        if (userRepository.existsById(username)) {
+            userRepository.deleteById(username);
+            return true;
+        }
+        return false;
+    }
+
+    // Add a credit card to a user
+    public boolean addCreditCardToUser(String username, CreditCard creditCard) {
+        Optional<User> userOptional = userRepository.findById(username);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            user.setCreditcard(creditCard.getCreditCardNumber()); // Set the credit card for the user
+            userRepository.save(user); // Save the user with the new credit card
+            return true;
+        }
+        return false;
+    }
 }

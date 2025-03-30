@@ -4,8 +4,8 @@ import com.example.BookStore.BookDetails.Book;
 import com.example.BookStore.BookRating.BookRatingInfo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,14 +23,15 @@ public class BrowseSortService {
 
     // Get books by genre
     public List<Book> getBooksByGenre(String genre) {
-        List<Book> books = browseSortRepo.findByGenre(genre);
-        System.out.println("Books found: " + books.size());
+        List<Book> books = browseSortRepo.findByGenreIgnoreCase(genre);
+        System.out.println("Genre searched: " + genre + " — Books found: " + books.size());
         return books;
     }
 
-    // Get top selling books
+    // Get top-selling books
     public List<Book> getTopSellingBooks() {
-        return browseSortRepo.findTop10ByOrderByCopiesSoldDesc();
+        PageRequest topTen = PageRequest.of(0, 10);
+        return browseSortRepo.findTopSellingBooks(topTen).getContent();
     }
     // Get books by rating with rating information
     public List<Map<String, Object>> getBooksByRating(int rating) {
@@ -50,7 +51,18 @@ public class BrowseSortService {
 
     // Apply discount by publisher
     public void applyDiscount(String publisher, double discountPercent) {
-        browseSortRepo.applyDiscount(publisher, discountPercent);
-        System.out.println("Discount applied to books from publisher: " + publisher);
+        List<Book> books = browseSortRepo.findAll(); // or create a better filter if needed
+
+        for (Book book : books) {
+            if (book.getauthor() != null && book.getauthor().getpublisher().equalsIgnoreCase(publisher)) {
+                double oldPrice = book.getprice();
+                double newPrice = oldPrice * (1 - discountPercent / 100);
+                book.setprice(Math.round(newPrice * 100.0) / 100.0); // round to 2 decimal places
+            }
+        }
+
+        browseSortRepo.saveAll(books); // persist all updates
+        System.out.println(">>> Discount applied to books from publisher: " + publisher);
     }
+
 }

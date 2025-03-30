@@ -15,11 +15,18 @@ public class bookRatingController {
     private BookRatingInfoRepo bookRepo;
     private ratingService ratingService;
 
-   /* @PostMapping("/addBook")
+/* 
+    @PostMapping("/addBook")
     public ResponseEntity<BookRatingInfo> createBook(@RequestBody BookRatingInfo book){
         BookRatingInfo response = bookRepo.save(book);
         return ResponseEntity.ok(response);
+    } catch (Exception e) {
+       
+        e.printStackTrace();
+        return ResponseEntity.internalServerError()
+            .body("Failed to save book: " + e.getMessage());
     }
+}
 
     @PostMapping("/addAll")
     public List<BookRatingInfo> addList(@RequestBody List<BookRatingInfo> bookList){
@@ -35,7 +42,7 @@ public class bookRatingController {
     public BookRatingInfo getBookId(@PathVariable long bookID){
         return bookRepo.findByBookId(bookID);
     }
-    */
+*/
     //--------------------------------------------------------------------------------
 
     @GetMapping("/getAllComment/{id}")
