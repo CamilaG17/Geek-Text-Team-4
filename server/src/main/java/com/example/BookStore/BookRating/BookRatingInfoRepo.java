@@ -1,8 +1,13 @@
 package com.example.BookStore.BookRating;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BookRatingInfoRepo extends JpaRepository<BookRatingInfo,Long> {
 
-    BookRatingInfo findByBookID(Long bookID);
+    List<BookRatingInfo> findByBookID(Long bookID);
+
+    BookRatingInfo findByBookId(Long bookID);
+
 }
