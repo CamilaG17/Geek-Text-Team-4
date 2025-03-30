@@ -12,10 +12,21 @@ public class bookRatingController {
     private BookRatingInfoRepo bookRepo;
 
     @PostMapping("/addBook")
-    public ResponseEntity<BookRatingInfo> createBook(@RequestBody BookRatingInfo book){
+    public ResponseEntity<?> createBook(@RequestBody BookRatingInfo book) {
+    try {
+    
+        if (book.getBookID() == null) {
+            return ResponseEntity.badRequest().body("Book ID is required");
+        }
         BookRatingInfo response = bookRepo.save(book);
         return ResponseEntity.ok(response);
+    } catch (Exception e) {
+       
+        e.printStackTrace();
+        return ResponseEntity.internalServerError()
+            .body("Failed to save book: " + e.getMessage());
     }
+}
 
     @PostMapping("/addAll")
     public List<BookRatingInfo> addList(@RequestBody List<BookRatingInfo> bookList){
