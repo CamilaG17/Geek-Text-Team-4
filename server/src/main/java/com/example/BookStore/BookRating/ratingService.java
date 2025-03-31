@@ -15,14 +15,18 @@ public class ratingService {
     @Autowired
     private BookRatingInfoRepo bookRepo;
 
-    public List<BookRatingInfo> getAllBooks(){
-        return bookRepo.findAll();
+    public void postRating(long bookID, String userID, int rating){
+        List<BookRatingInfo> bookRating = bookRepo.findByBookIDAndUserID(bookID, userID);
+        
+        BookRatingInfo ratingInfo = bookRating.get(0);
+        ratingInfo.setRating(rating);
     }
-    public BookRatingInfo saveBook(BookRatingInfo book){
-        return bookRepo.save(book);
-    }
-    public BookRatingInfo getBookId(long bookID){
-        return bookRepo.findByBookId(bookID);
+
+    public void postComment(long bookID, String userID, String comment){
+        List<BookRatingInfo> bookRating = bookRepo.findByBookIDAndUserID(bookID, userID);
+        
+        BookRatingInfo commentInfo = bookRating.get(0);
+        commentInfo.setComment(comment);
     }
 
     public List<String> getAllComment(long bookID){

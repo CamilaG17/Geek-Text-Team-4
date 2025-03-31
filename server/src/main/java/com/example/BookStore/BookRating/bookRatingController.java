@@ -12,45 +12,24 @@ import java.util.OptionalDouble;
 @RequestMapping("/api/rating") // Added a base path for all of us to have consistency.
 public class bookRatingController {
     @Autowired
-    private BookRatingInfoRepo bookRepo;
     private ratingService ratingService;
 
-/* 
-    @PostMapping("/addBook")
-    public ResponseEntity<BookRatingInfo> createBook(@RequestBody BookRatingInfo book){
-        BookRatingInfo response = bookRepo.save(book);
-        return ResponseEntity.ok(response);
-    } catch (Exception e) {
-       
-        e.printStackTrace();
-        return ResponseEntity.internalServerError()
-            .body("Failed to save book: " + e.getMessage());
-    }
-}
-
-    @PostMapping("/addAll")
-    public List<BookRatingInfo> addList(@RequestBody List<BookRatingInfo> bookList){
-        return bookRepo.saveAll(bookList);
+    @PostMapping("/postRating/{bookID}/{userID}/{rating}")
+    public void postRating(@PathVariable long bookID, String userID, int rating){
+        ratingService.postRating(bookID, userID, rating);
     }
 
-    @GetMapping("/getAll")
-    public List<BookRatingInfo> getAllBook(){
-        return bookRepo.findAll();
+    @PostMapping("/postComment/{bookID}/{userID}/{comment}")
+    public void postComment(@PathVariable long bookID, String userID, String comment){
+        ratingService.postComment(bookID, userID, comment);
     }
 
-    @GetMapping("/getBook/{id}")
-    public BookRatingInfo getBookId(@PathVariable long bookID){
-        return bookRepo.findByBookId(bookID);
-    }
-*/
-    //--------------------------------------------------------------------------------
-
-    @GetMapping("/getAllComment/{id}")
+    @GetMapping("/getAllComment/{bookID}")
     public List<String> getAllComment(@PathVariable long bookID){
         return ratingService.getAllComment(bookID);
     }
 
-    @GetMapping("/getRatingAvg/{id}")
+    @GetMapping("/getRatingAvg/{bookID}")
     public OptionalDouble getRatingAvg(@PathVariable long bookID){
         return getRatingAvg(bookID);
     }

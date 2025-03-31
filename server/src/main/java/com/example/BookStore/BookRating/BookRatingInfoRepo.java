@@ -10,4 +10,6 @@ public interface BookRatingInfoRepo extends JpaRepository<BookRatingInfo,Long> {
 
     BookRatingInfo findByBookId(Long bookID);
 
+    List<BookRatingInfo> findByBookIDAndUserID(long bookID, String userID);
+
 }
