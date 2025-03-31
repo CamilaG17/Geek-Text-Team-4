@@ -14,22 +14,22 @@ public class bookRatingController {
     @Autowired
     private ratingService ratingService;
 
-    @PostMapping("/postRating/{bookID}/{userID}/{rating}")
+    @PostMapping("/postRating/{bookID}/{userID}/{rating}") //User can post rating
     public void postRating(@PathVariable long bookID, String userID, int rating){
         ratingService.postRating(bookID, userID, rating);
     }
 
-    @PostMapping("/postComment/{bookID}/{userID}/{comment}")
+    @PostMapping("/postComment/{bookID}/{userID}/{comment}") //User can post comment
     public void postComment(@PathVariable long bookID, String userID, String comment){
         ratingService.postComment(bookID, userID, comment);
     }
 
-    @GetMapping("/getAllComment/{bookID}")
+    @GetMapping("/getAllComment/{bookID}") //User can get all comments from bookID
     public List<String> getAllComment(@PathVariable long bookID){
         return ratingService.getAllComment(bookID);
     }
 
-    @GetMapping("/getRatingAvg/{bookID}")
+    @GetMapping("/getRatingAvg/{bookID}") //User can get all ratings and calcuate avg from bookID
     public OptionalDouble getRatingAvg(@PathVariable long bookID){
         return getRatingAvg(bookID);
     }
