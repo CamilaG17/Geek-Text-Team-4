@@ -38,9 +38,10 @@ public class bookRatingController {
         return bookRepo.findAll();
     }
 
-    @GetMapping("/getBook/{id}")
-    public BookRatingInfo getBookId(@PathVariable long id){
-        return bookRepo.findByBookID(id);
+    @GetMapping("/bookrating/{id}")
+    public ResponseEntity<Double> getAverageRating(@PathVariable Long id) {
+        Double averageRating = bookRepo.getAverageRatingForBook(id);
+        return ResponseEntity.ok(averageRating != null ? averageRating : 0.0);
     }
 
 }

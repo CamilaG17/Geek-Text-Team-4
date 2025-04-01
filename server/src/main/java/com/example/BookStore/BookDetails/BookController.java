@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.BookStore.BookRating.BookRatingInfoRepo;
+
 
 @RestController
 @RequestMapping("/api")  // this is the base URL for all the endpoints in this class
@@ -17,11 +19,22 @@ public class BookController {
     @Autowired
     private AuthorService authorService;
 
+    @Autowired
+    private BookRatingInfoRepo bookRatingInfoRepo;
 
     @GetMapping("/books/All") //Get all books
     public List<Book> getAllBooks() {
-        return bookService.getAllBooks();
+        List<Book> books = bookService.getAllBooks();
+        
+        // Iterate through books and set average ratings
+        for (Book book : books) {
+            Double averageRating = bookRatingInfoRepo.getAverageRatingForBook(book.getISBN());
+            book.setAverageRating(averageRating != null ? averageRating : 0.0);
+        }
+        
+        return books;
     }
+    
     @GetMapping("/books/firstName/{firstName}")
     public List<Book> getBooksByAuthorFirstName(@PathVariable String firstName){
     return bookService.getBooksByAuthorFirstName(firstName);

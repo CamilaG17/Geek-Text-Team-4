@@ -43,6 +43,7 @@ const Home = () => {
                   <h3>{book.bookName}</h3>
                   <p>{book.author ? `${book.author.firstName} ${book.author.lastName}` : 'Author Unknown'}</p>
                   <p>Price: ${book.price ? book.price.toFixed(2) : '0.00'}</p>
+                  <button className="addtocart"onClick={() => handleAddToCart(book)}>Add to Cart</button>
                 </div>
               ))
             ) : (

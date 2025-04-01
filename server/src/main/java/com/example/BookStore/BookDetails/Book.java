@@ -21,8 +21,10 @@ public class Book {
     @Column(name="copiessold")
     private Long copiesSold;
 
+    @Transient 
+    private Double averageRating;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="authorid")
     private Author author;
 
@@ -87,4 +89,12 @@ public class Book {
     public Long getcopiesSold(){
         return this.copiesSold;
     }
+    public Double getAverageRating() {
+        return averageRating;
+    }
+    public void setAverageRating(Double averageRating) {
+        this.averageRating = averageRating;
+    }
+
+   
 }
