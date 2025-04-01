@@ -16,19 +16,20 @@ import java.util.List;
 @Repository
 public interface BrowseSortRepo extends JpaRepository<Book, Long> {
     // Find books by genre
-    List<Book> findByGenre(@Param("genre") String genre);
+    List<Book> findByGenreIgnoreCase(@Param("genre") String genre);
 
     // Find books with ratings equal to value
     @Query("SELECT b, r FROM Book b, BookRatingInfo r WHERE b.isbn = r.bookID AND r.rating = :rating")
     List<Object[]> findBooksWithRatingDetails(@Param("rating") int rating);
     
-    // Get top selling books - using correct method name to match the DESC sorting
+    // Get top-selling books - using correct method name to match the DESC sorting
     @Query("SELECT b FROM Book b ORDER BY b.copiesSold DESC")
     Page<Book> findTopSellingBooks(Pageable pageable);
 
     // Apply discount to books by publisher
-    @Transactional
     @Modifying
-    @Query("UPDATE Book b SET b.price = b.price * (1 - :discountPercent / 100) WHERE b.author.publisher = :publisher")
+    @Transactional
+    @Query("UPDATE Book b SET b.price = b.price * (1 - :discountPercent / 100) WHERE b.author.id IN (SELECT a.id FROM Author a WHERE a.publisher = :publisher)")
     void applyDiscount(@Param("publisher") String publisher, @Param("discountPercent") double discountPercent);
+
 }

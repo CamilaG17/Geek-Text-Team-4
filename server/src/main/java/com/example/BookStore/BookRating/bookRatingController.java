@@ -3,45 +3,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.BookStore.BookDetails.Book;
+
 import java.util.List;
+import java.util.OptionalDouble;
 
 @RestController
-@RequestMapping("/api") // Added a base path for all of us to have consistency.
+@RequestMapping("/api/rating") // Added a base path for all of us to have consistency.
 public class bookRatingController {
     @Autowired
-    private BookRatingInfoRepo bookRepo;
+    private ratingService ratingService;
 
-    @PostMapping("/addBook")
-    public ResponseEntity<?> createBook(@RequestBody BookRatingInfo book) {
-    try {
-    
-        if (book.getBookID() == null) {
-            return ResponseEntity.badRequest().body("Book ID is required");
-        }
-        BookRatingInfo response = bookRepo.save(book);
-        return ResponseEntity.ok(response);
-    } catch (Exception e) {
-       
-        e.printStackTrace();
-        return ResponseEntity.internalServerError()
-            .body("Failed to save book: " + e.getMessage());
-    }
-}
-
-    @PostMapping("/addAll")
-    public List<BookRatingInfo> addList(@RequestBody List<BookRatingInfo> bookList){
-        return bookRepo.saveAll(bookList);
+    @PostMapping("/postRating/{bookID}/{userID}/{rating}") //User can post rating
+    public void postRating(@PathVariable long bookID, String userID, int rating){
+        ratingService.postRating(bookID, userID, rating);
     }
 
-    @GetMapping("/getAll")
-    public List<BookRatingInfo> getAllBook(){
-        return bookRepo.findAll();
+    @PostMapping("/postComment/{bookID}/{userID}/{comment}") //User can post comment
+    public void postComment(@PathVariable long bookID, String userID, String comment){
+        ratingService.postComment(bookID, userID, comment);
     }
 
-    @GetMapping("/bookrating/{id}")
-    public ResponseEntity<Double> getAverageRating(@PathVariable Long id) {
-        Double averageRating = bookRepo.getAverageRatingForBook(id);
-        return ResponseEntity.ok(averageRating != null ? averageRating : 0.0);
+    @GetMapping("/getAllComment/{bookID}") //User can get all comments from bookID
+    public List<String> getAllComment(@PathVariable long bookID){
+        return ratingService.getAllComment(bookID);
+    }
+
+    @GetMapping("/getRatingAvg/{bookID}") //User can get all ratings and calcuate avg from bookID
+    public OptionalDouble getRatingAvg(@PathVariable long bookID){
+        return getRatingAvg(bookID);
     }
 
 }
