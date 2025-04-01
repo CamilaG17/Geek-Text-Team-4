@@ -3,7 +3,6 @@ package com.example.BookStore.BookDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BookService {
@@ -12,24 +11,39 @@ public class BookService {
     private Bookrepository bookRepository;
 
     public List<Book> getAllBooks() {
-        return bookRepository.findAll();
+        // Use a method that ensures authors are loaded
+        List<Book> books = bookRepository.findAll();
+        
+        // Force initialization of lazy-loaded authors
+        books.forEach(book -> {
+            if (book.getAuthor() != null) {
+                book.getAuthor().getFirstName(); // This can help trigger lazy loading
+            }
+        });
+        
+        return books;
     }
 
     public Book getBookById(Long id) {
-        Optional<Book> book = bookRepository.findById(id);
-        return book.orElse(null);
+        return bookRepository.findById(id)
+            .orElse(null);
     }
-    public Book getByBookName(String bookName){
-        Optional<Book> book =bookRepository.findByBookName(bookName);
-        return book.orElse(null);
+
+    public Book getByBookName(String bookName) {
+        return bookRepository.findByBookName(bookName)
+            .orElse(null);
     }
-    public List<Book> getBooksByAuthorFirstName(String firstName){
+
+    public List<Book> getBooksByAuthorFirstName(String firstName) {
         return bookRepository.findByAuthorFirstName(firstName);
     }
-    public List<Book> getBooksByAuthorLastName(String lastName){
+
+    public List<Book> getBooksByAuthorLastName(String lastName) {
         return bookRepository.findByAuthorLastName(lastName);
     }
+
     public Book saveBook(Book book) {
         return bookRepository.save(book);
     }
+    
 }

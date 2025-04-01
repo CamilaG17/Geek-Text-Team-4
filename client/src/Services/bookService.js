@@ -19,3 +19,51 @@ export const getBookByLastName = (lastName) =>{
 export const createBook =(bookData)=>{
     return apiClient.post('/api/create/book', bookData);
 };
+
+export const searchBooks = async (query) => {
+    try {
+      if (!isNaN(query)) {
+        try {
+          const bookByIdResponse = await getBookById(query);
+          if (bookByIdResponse && bookByIdResponse.data) {
+    
+            return { data: [bookByIdResponse.data] };
+          }
+        } catch (err) {
+          console.log("ID search failed, continuing");
+        }
+      }
+      
+      try {
+        const bookNameResponse = await getBookByName(query);
+        if (bookNameResponse && bookNameResponse.data) {
+          return { data: [bookNameResponse.data] };
+        }
+      } catch (err) {
+        console.log("Title search failed, continuing");
+      }
+      
+      try {
+        const firstNameResponse = await getBookByFirstName(query);
+        if (firstNameResponse && firstNameResponse.data && firstNameResponse.data.length > 0) {
+          return firstNameResponse;
+        }
+      } catch (err) {
+        console.log("First name search failed, continuing");
+      }
+      
+      try {
+        const lastNameResponse = await getBookByLastName(query);
+        if (lastNameResponse && lastNameResponse.data && lastNameResponse.data.length > 0) {
+          return lastNameResponse;
+        }
+      } catch (err) {
+        console.log("Last name search failed, continuing");
+      }
+      
+      return { data: [] };
+    } catch (error) {
+      console.error("Error in search function:", error);
+      throw error;
+    }
+  };

@@ -1,80 +1,116 @@
-import React from 'react'
-import './Navbar.css' // Importing the CSS file for the Navbar component
-//import logo_icon from '/logo.png'; // Importing the logo icon
-//import search_icon from '/search.png'; // Importing the search icon
-//import wishlist_icon from '/wishlist.png'; // Importing the notification icon
-//import profile_icon from '/profile.png'; // Importing the user profile icon
-//import cart_icon from '/Cart.png'; // Importing the cart icon
+import React, { useState, useEffect } from 'react'
+import './Navbar.css' 
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-// Navbar component definition
 const Navbar = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [activePage, setActivePage] = useState('/');
+  const [searchQuery, setSearchQuery]= useState('');
+
+  // Update active page when location changes
+  useEffect(() => {
+    setActivePage(location.pathname);
+  }, [location]);
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+  // Handle search submission
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
+
+  
   return (
    
-    <nav className='flex-div'>
-      
+  <nav className='flex-div'>
       <div className='nav-left flex-div'>
-      {
-        /* I moved the logos to public folder cause thats convention.
-        Also the convention is to inline like src="/logo.png" instead of importing it like we did before. */ 
-      }
-        <img className='Logo-icon' src="logo.png" alt="Logo Icon" /> 
+        <Link to="/">
+          <img className='Logo-icon' src="logo.png" alt="Logo Icon" /> 
+        </Link>
       </div>
-  
       <div className="nav-middle flex-div">
-        <div className="search-box flex-div">
-          <input className = 'Search' type="text" placeholder='Search by Title, Author or ISBN'  style={{ WebkitTextFillColor: '#3E2723', textAlign: 'left', display: 'flex',alignItems: 'center', height: '30px'}}  /> 
-          <img src="search.png" alt="Search Icon" /> 
-        </div>
-      </div> 
-
-
-      <div className="nav-right">
-    <div className="wishlist-container">
-        <img className="wishlist" src="wishlist.png" alt="Wishlist Icon" />
-        <span className="wishlist-text">Wishlist</span>
-    </div>
-    <div className="profile-container">
-        <img className="profile" src="profile.png" alt="Profile Icon" />
-        <span className="profile-text">Profile</span>
-    </div>
-    <div className ="cart-container">
-    
-    <div onClick={() => window.location.href='/cart'}> {/* Redirect to cart page on click */} 
-    
-      <img className ="cart" src="cart.png" alt="Cart Icon"/>
-      <span className ="cart-text">Cart</span>
-      
+        <form className="search-box flex-div" onSubmit={handleSearchSubmit}>
+          <input 
+            className='Search' 
+            type="text" 
+            placeholder='Search by Title, Author or ISBN'  
+            value={searchQuery}
+            onChange={handleSearchChange}
+            style={{ WebkitTextFillColor: '#3E2723', textAlign: 'left', display: 'flex', alignItems: 'center', height: '30px'}} 
+          /> 
+          <button type="submit" style={{ background: 'transparent', border: 'none', cursor: 'pointer' }}>
+            <img src="search.png" alt="Search Icon" />
+          </button>
+        </form>
       </div>
-      
+
+
+    <div className="nav-right">
+      <div className="wishlist-container">
+          <img className="wishlist" src="wishlist.png" alt="Wishlist Icon" />
+          <span className="wishlist-text">Wishlist</span>
+      </div>
+      <div className="profile-container">
+          <img className="profile" src="profile.png" alt="Profile Icon" />
+          <span className="profile-text">Profile</span>
+      </div>
+      <div className ="cart-container">
+        <div onClick={() => window.location.href='/cart'}> {/* Redirect to cart page on click */} 
+        <img className ="cart" src="Cart.png" alt="Cart Icon"/>
+        <span className ="cart-text">Cart</span>
+        </div>
+      </div>
     </div>
-</div>
     <div className="nav-bottom">
         <div className='nav-bottom-left'>
-    <button>
-        <span className='nav-bottom-popular'>Popular Scrolls</span>
-    </button>
-    <button>
-        <span className='nav-bottom-fantasy'>Fantasy</span>
-    </button>
-    <button>
-        <span className='nav-bottom-hystery'>Mystery</span>
-    </button>
-    <button>
-        <span className='nav-bottom-horror'>Horror</span>
-    </button>
-    <button>
-        <span className='nav-bottom-scifi'>Science Fiction</span>
-    </button>
-    <button>
-        <span className='nav-bottom-rom'>Romance</span>
-    </button>
+          <Link to="/popular">
+            <button className={activePage === '/popular' ? 'active-button' : ''}>
+              <span className='nav-bottom-popular'>Popular Scrolls</span>
+            </button>
+          </Link>
+          <Link to="/fantasy">
+            <button className={activePage === '/fantasy' ? 'active-button' : ''}>
+              <span className='nav-bottom-fantasy'>Fantasy</span>
+            </button>
+          </Link>
+          <Link to="/mystery">
+            <button className={activePage === '/mystery' ? 'active-button' : ''}>
+              <span className='nav-bottom-hystery'>Mystery</span>
+            </button>
+          </Link>
+          <Link to="/Drama">
+            <button className={activePage === '/Drama' ? 'active-button' : ''}>
+              <span className='nav-bottom-hystery'>Drama</span>
+            </button>
+          </Link>
+          <Link to="/Fiction">
+            <button className={activePage === '/Fiction' ? 'active-button' : ''}>
+              <span className='nav-bottom-hystery'>Fiction</span>
+            </button>
+          </Link>
+          <Link to="/horror">
+            <button className={activePage === '/horror' ? 'active-button' : ''}>
+              <span className='nav-bottom-horror'>Horror</span>
+            </button>
+          </Link>
+          <Link to="/scifi">
+            <button className={activePage === '/scifi' ? 'active-button' : ''}>
+              <span className='nav-bottom-scifi'>Science Fiction</span>
+            </button>
+          </Link>
+          <Link to="/romance">
+            <button className={activePage === '/romance' ? 'active-button' : ''}>
+              <span className='nav-bottom-rom'>Romance</span>
+            </button>
+          </Link>
+        </div>
       </div>
-      </div>
-
-      
     </nav>
-
-
   );
 };
 
