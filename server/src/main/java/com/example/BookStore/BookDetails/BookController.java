@@ -20,20 +20,24 @@ public class BookController {
     private AuthorService authorService;
 
     @Autowired
-    private BookRatingInfoRepo bookRatingInfoRepo;
 
-    @GetMapping("/books/All") //Get all books
+
+    @GetMapping("/books/All")
     public List<Book> getAllBooks() {
-        List<Book> books = bookService.getAllBooks();
-        
-        // Iterate through books and set average ratings
-        for (Book book : books) {
-            Double averageRating = bookRatingInfoRepo.getAverageRatingForBook(book.getISBN());
-            book.setAverageRating(averageRating != null ? averageRating : 0.0);
+    List<Book> books = bookService.getAllBooks();
+    
+    for (Book book : books) {
+        System.out.println("Book: " + book.getBookName());
+        if (book.getAuthor() != null) {
+            System.out.println("Author ID: " + book.getAuthor().getId());
+            System.out.println("Author Name: " + book.getAuthor().getFirstName() + " " + book.getAuthor().getLastName());
+        } else {
+            System.out.println("No author associated with book");
         }
-        
-        return books;
     }
+    
+    return books;
+}
     
     @GetMapping("/books/firstName/{firstName}")
     public List<Book> getBooksByAuthorFirstName(@PathVariable String firstName){

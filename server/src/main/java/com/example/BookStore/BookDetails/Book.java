@@ -31,17 +31,18 @@ public class Book {
 
     public Book(){}
 
-    public Book(Long isbn, String bookName,String bookDescription, double price, String author, String genre, int year, Long copiesSold){
-        this.bookName= bookName;
-        this.isbn =isbn;
-        this.bookDescription = bookDescription;
-        this.price=price;
-        this.genre=genre;
-        this.year=year;
-        this.copiesSold=copiesSold;
-    }
+    public Book(Long isbn, String bookName, String bookDescription, double price, Author author, String genre, int year, Long copiesSold) {         
+        this.bookName = bookName;         
+        this.isbn = isbn;         
+        this.bookDescription = bookDescription;         
+        this.price = price;
+        this.author = author; // Added this line
+        this.genre = genre;         
+        this.year = year;         
+        this.copiesSold = copiesSold;     
+    }  
    // Getters and Setters
-    public Author getauthor(){
+    public Author getAuthor(){
         return author;
     }
     public void setAuthor(Author author){
