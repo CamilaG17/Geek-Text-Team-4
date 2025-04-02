@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from './Components/NavBar/Navbar';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Home from './Pages/Home';
 import PopularScrolls from './Pages/PopularScrolls';
 import Fantasy from './Pages/Fantasy';
@@ -12,15 +12,26 @@ import Fiction from './Pages/Fiction';
 import Drama from './Pages/Drama';
 import Cart from './Pages/Cart';
 import SearchResults from './Pages/SearchResult';
+import BookDetails from './Pages/BookDetails';
 import './App.css';
+
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+};
 
 const App = () => {
   console.log("App rendering");
   
-  
   return (
     <>
       <Navbar />
+      <ScrollToTop /> 
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/popular" element={<PopularScrolls />} />
@@ -33,6 +44,7 @@ const App = () => {
         <Route path="/fiction" element={<Fiction />} />
         <Route path="/drama" element={<Drama />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/book/:isbn" element={<BookDetails/>}/>
       </Routes>
     </>
   );
