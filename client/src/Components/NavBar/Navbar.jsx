@@ -51,14 +51,21 @@ const Navbar = () => {
 
 
     <div className="nav-right">
+
       <div className="wishlist-container">
+          <div  onClick={() => window.location.href='/wishlist'}> {/* Redirect to wishlist page on click */} 
           <img className="wishlist" src="wishlist.png" alt="Wishlist Icon" />
           <span className="wishlist-text">Wishlist</span>
+          </div>
       </div>
+
       <div className="profile-container">
+          <div onClick={() => window.location.href='/profile'}> {/* Redirect to profile page on click */}
           <img className="profile" src="profile.png" alt="Profile Icon" />
           <span className="profile-text">Profile</span>
+          </div>
       </div>
+
       <div className ="cart-container">
         <div onClick={() => window.location.href='/cart'}> {/* Redirect to cart page on click */} 
         <img className ="cart" src="Cart.png" alt="Cart Icon"/>
