@@ -1,103 +1,126 @@
 .home-container {
-    display: flex;
-    height: 100vh;;
-    flex-direction: column;
-    background-color: #F5E6C8; 
-    padding: 40px;
-    margin-top: 14%;
-    margin-bottom: 25%;
-  }
-  
-  .featured-section {
-    margin-bottom: 50px;
-  }
-  
-  .book-card h3 {
-    color: #6E2127;
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  background-color: #F5E6C8;
+  padding: 40px;
+  margin-top: 14%;
+  margin-bottom: 25%;
+}
 
-    margin-bottom: 10px;
-    font-weight: bold;
-  }
-  
-  
+.featured-section {
+  margin-bottom: 50px;
+}
+
+.featured-section h2 {
+  color: #6E2127;
+  font-family: inherit;
+  margin-bottom: 30px;
+  font-size: 28px;
+}
+
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 35px;
+}
+
+.book-card {
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  border: 3px groove #6E2127;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.book-card:hover {
+  transform: translateY(-5px);
+  box-shadow:  10px 15px rgba(110, 33, 39, 0.2);
+}
+
+.scroll-image {
+  height: 390px;
+  background-image: url('scroll.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.book-info {
+  padding: 10px;
+  background-color: #F5E6C8;
+  border-top: 2px dashed #6E2127;
+}
+
+.book-info h3 {
+  color: #6E2127;
+  margin-bottom: 15px;
+  font-size: 17px;
+  font-weight: bold;
+  text-align: center;
+  height: 25px;
+}
+
+.book-info .author {
+  color: #613e05;
+  margin: 0;
+  font-size: 17px;
+  text-align: center;
+}
+
+.book-info .price {
+  color: #613e05;
+  font-size: 17px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.book-info .addtocart {
+  background-color: #6E2127;
+  color: #F5E6C8;
+  padding: 10px 3px;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  display: block;
+  width: 120px;
+  margin: 0 auto;
+}
+
+.book-info .addtocart:hover {
+  background-color: #d59c50;
+}
+
+.error-message {
+  color: #d9534f;
+  background-color: #f8d7da;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
   .book-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 85px;
-    cursor: pointer;
+    grid-template-columns: repeat(4, 1fr);
   }
-  
-  .book-card {
-    border: 2px solid #6E2127;
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    gap: 30px;
-    background-color: #F5E6C8;
-  }
-  .book-card-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    }
-  .book-thumbnail {
-    height: 265px;
-    background-image: url('scroll.png');
-    margin-bottom: 10px;
-    background-size:cover;
-    background-position: center;
-    
-  }
-  .book-card p {
-    margin-bottom: 5px;
-    color: #613e05; 
 }
-  .error-message{
-    color:#d9534f;
-    background-color: #f8d7da;
-    padding: 15px;
-    border-radius: 5px;
-    margin-bottom: 20px;
+
+@media (max-width: 992px) {
+  .book-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
-  .addtocart {
-    background-color: #6E2127; 
-    color: #F5E6C8; 
-    border: none;
-    padding: 10px 15px;
-    border-radius: 15px;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-  .addtocart:hover {
-    transform: scale(1.05); 
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15); 
+
+@media (max-width: 768px) {
+  .book-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
-  .star-rating {
-    display: inline-flex;
-    align-items: center;
+}
+
+@media (max-width: 576px) {
+  .book-grid {
+    grid-template-columns: 1fr;
   }
-  
-  .star {
-    color: #ccc;
-    font-size: 24px;
-    margin-right: 4px;
-  }
-  
-  .star.full {
-    color: #f8ce0b;
-  }
-  
-  .star.half {
-    position: relative;
-  }
-  
-  .star.half:before {
-    content: '\2605';
-    position: absolute;
-    left: 0;
-    color: #f8ce0b;
-    overflow: hidden;
-    width: 50%;
-  }
+}
