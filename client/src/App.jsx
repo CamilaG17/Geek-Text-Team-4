@@ -13,6 +13,11 @@ import Drama from './Pages/Drama';
 import Cart from './Pages/Cart';
 import SearchResults from './Pages/SearchResult';
 import BookDetails from './Pages/BookDetails';
+import LoginSignup from './Pages/Profile';
+
+
+
+
 import './App.css';
 
 const ScrollToTop = () => {
@@ -45,6 +50,7 @@ const App = () => {
         <Route path="/drama" element={<Drama />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/book/:isbn" element={<BookDetails/>}/>
+        <Route path="/profile" element={<LoginSignup />} />
       </Routes>
     </>
   );

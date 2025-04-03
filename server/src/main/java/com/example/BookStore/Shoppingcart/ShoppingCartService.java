@@ -87,5 +87,13 @@ public class ShoppingCartService {
             item.setQuantity(1);
             shoppingCartRepository.save(item);
         }
+
     }
+
+    public void deleteFromCart(String username, Long isbn) {
+        List<ShoppingCartItem> items = shoppingCartRepository.findByUsernameAndIsbn(username, isbn);
+        if (!items.isEmpty()) {
+            shoppingCartRepository.deleteAll(items);
+        }
+    }    
 }
