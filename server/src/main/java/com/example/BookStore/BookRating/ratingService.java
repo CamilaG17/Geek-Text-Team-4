@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.OptionalDouble;
+import java.util.stream.Collectors;
 
 @Service
 public class ratingService {
@@ -30,7 +31,7 @@ public class ratingService {
         List<BookRatingInfo> bookRating = bookRepo.findByBookID(bookID);
         return bookRating.stream()
             .map(BookRatingInfo :: getComment)
-            .toList();
+            .collect(Collectors.toList());
     }
 
     public OptionalDouble getRatingAvg(long bookID){
