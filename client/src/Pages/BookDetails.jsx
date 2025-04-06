@@ -1,32 +1,38 @@
 import React, { useState, useEffect } from 'react';
-import { getBookById } from '../Services/bookService';
+import { getBookById,getRatingById,getCommentsById} from '../Services/bookService';
 import { useParams, useNavigate } from 'react-router-dom';
+import StarRating from '../Components/StarRating/StarRating';
 import './BookDetails.css';
 
 const BookDetails = () => {
   const { isbn } = useParams();
-  const [book, setBook] = useState(null); 
+  const [book, setBook] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [ratings, setRatings] = useState({ average: 0, count: 0 });
+  const [comments, setComments] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchBook = async () => {
+    const fetchBookData = async () => {
       try {
         setLoading(true);
-        const response = await getBookById(isbn); 
         
-        // Detailed logging
-        console.log('Raw response:', response);
-        console.log('Book data:', response.data);
+  
+        const bookResponse = await getBookById(isbn);
+        setBook(bookResponse.data);
         
-        console.log('Book:', response.data);
-        console.log('Author:', response.data.author);
-        console.log('Author First Name:', response.data.author?.firstName);
-        console.log('Author Last Name:', response.data.author?.lastName);
-        console.log('Book Description:', response.data.bookDescription);
-
-        setBook(response.data);
+       
+        const ratingResponse = await getRatingById(isbn);
+        setRatings({
+          average: ratingResponse.data.average || 0,
+          count: ratingResponse.data.count || 0
+        });
+        
+        
+        const commentsResponse = await getCommentsById(isbn);
+        setComments(commentsResponse.data || []);
+        
         setLoading(false);
       } catch (err) {
         console.error('Error fetching book details:', err);
@@ -35,8 +41,8 @@ const BookDetails = () => {
       }
     };
 
-    fetchBook(); 
-  }, [isbn]); 
+    fetchBookData();
+  }, [isbn]);
 
   return (
     <div className="book-details-container">
@@ -58,6 +64,7 @@ const BookDetails = () => {
               <p className="author">
                 By: {book.author ? `${book.author.firstName || 'Unknown'} ${book.author.lastName || ''}`.trim() : 'Author Unknown'}
               </p>
+              
               <p className="price">
                 Price: ${book.price ? book.price.toFixed(2) : '0.00'}
               </p>
@@ -68,8 +75,41 @@ const BookDetails = () => {
               <button className="addtocart">Add to Cart</button>
             </div>
           </div>
+
+          {/* Ratings section */}
+          <div className="rating-section">
+            <h2>Ratings</h2>
+            <div className="rating-bottom">
+            {ratings.count > 0 ? (
+              <StarRating 
+                averageRating={ratings.average} 
+                ratingCount={ratings.count} 
+              />
+            ) : (
+              <p className="no-ratings-message">No ratings yet</p>
+            )}
+          </div>
+          </div>
+
+          {/* Comments section */}
+          <div className="comments-section">
+            <h2>Comments</h2>
+            <div className="comments-list">
+              {comments.length > 0 ? (
+                comments.map((comment, index) => (
+                  <div key={index} className="comment">
+                     <p className="comment-user">{comment.username || 'Anonymous'}</p>
+                     <p className="comment-text">{comment.text}</p>
+                  </div>
+                ))
+              ) : (
+                <p className="no-comments-message">No comments yet.</p>
+              )}
+            </div>
+          </div>
         </div>
       )}
+      
       {!loading && !error && !book && (
         <div className="not-found">
           <p>Book not found</p>

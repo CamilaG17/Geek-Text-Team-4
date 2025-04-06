@@ -1,6 +1,5 @@
 package com.example.BookStore.BookRating;
 
-import com.example.BookStore.BookDetails.Book;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,7 +17,7 @@ public class BookRatingInfo {
     @Column(name = "username")// Changed the column name along with the type to match shared database.
     private String userID;
     @Column(name = "rating")// Changed the column name along with the type to match shared database.
-    private int rating;
+    private Integer rating;
     @Column(name = "comment")// Changed the column name along with the type to match shared database.
     private String comment;
 

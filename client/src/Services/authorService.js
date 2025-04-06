@@ -9,3 +9,4 @@ export const getAuthorbyId = (id)=> {
 export const createAuthor =(authorData)=>{
     return apiClient.post('/api/create/author', authorData);
 }
+// fetches author details from backend

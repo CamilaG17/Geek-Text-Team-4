@@ -26,7 +26,7 @@ const Navbar = () => {
 
   
   return (
-   
+   //functionality and positioning for navigation bar
   <nav className='flex-div'>
       <div className='nav-left flex-div'>
         <Link to="/">

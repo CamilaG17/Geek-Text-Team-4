@@ -1,0 +1,35 @@
+.star-rating {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+}
+
+.star {
+  color: #8B4513 !important; /* Brown color for empty stars */
+  font-size: 1.2rem;
+  margin-right: 2px;
+}
+
+.star.filled {
+  color: #ffc107 !important; /* Yellow color for filled stars */
+}
+
+.star.half-filled {
+  position: relative;
+  color: #8B4513 !important; /* Brown for base of half-filled */
+}
+
+.star.half-filled::before {
+  content: '★';
+  color: #ffc107 !important; /* Yellow color for half-filled */
+  position: absolute;
+  left: 0;
+  width: 50%;
+  overflow: hidden;
+}
+
+.rating-text {
+  font-size: 0.8rem;
+  color: #666 !important;
+  margin-left: 5px;
+}

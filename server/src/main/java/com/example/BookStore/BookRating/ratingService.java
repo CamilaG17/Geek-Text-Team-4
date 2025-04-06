@@ -3,8 +3,9 @@ package com.example.BookStore.BookRating;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.OptionalDouble;
 import java.util.stream.Collectors;
 
@@ -27,18 +28,33 @@ public class ratingService {
         commentInfo.setComment(comment);
     }
 
-    public List<String> getAllComment(long bookID){
+    public List<Map<String, Object>> getAllCommentWithUsername(long bookID) {
         List<BookRatingInfo> bookRating = bookRepo.findByBookID(bookID);
         return bookRating.stream()
-            .map(BookRatingInfo :: getComment)
+            .filter(info -> info.getComment() != null && !info.getComment().isEmpty())
+            .map(info -> {
+                Map<String, Object> commentData = new HashMap<>();
+                commentData.put("text", info.getComment());
+                commentData.put("username", info.getUserID());
+                return commentData;
+            })
             .collect(Collectors.toList());
     }
 
-    public OptionalDouble getRatingAvg(long bookID){
-        List<BookRatingInfo> bookRating = bookRepo.findByBookID(bookID);
-        return bookRating.stream()
-            .mapToDouble(item -> item.getRating())
-            .average();
+    public OptionalDouble getRatingAvg(long bookID) {
+        try {
+            List<BookRatingInfo> bookRating = bookRepo.findByBookID(bookID);
+            return bookRating.stream()
+                .mapToDouble(item -> item.getRating())
+                .average();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return OptionalDouble.empty();
+        }
+    }
+
+    public int getRatingCount(long bookID) {
+        return bookRepo.findByBookID(bookID).size();
     }
 
     

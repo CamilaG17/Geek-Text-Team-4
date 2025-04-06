@@ -13,3 +13,5 @@ const ScrollToTop = () => {
 
 
 export default ScrollToTop;
+
+//Added this component so when user navigates to new page, it starts at the top.

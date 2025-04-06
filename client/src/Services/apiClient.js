@@ -7,3 +7,4 @@ const apiClient = axios.create({
     }
 });
 export default apiClient;
+//used to fetch backend api end points
