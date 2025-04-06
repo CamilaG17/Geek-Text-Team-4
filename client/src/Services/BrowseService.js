@@ -1,5 +1,5 @@
 import apiClient from './apiClient';
-
+//fetches browse endpoints from backend
 
 export const getBooksByGenre =(genre)=>{
     return apiClient.get(`/browse/genre/${genre}`);

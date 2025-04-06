@@ -1,11 +1,20 @@
 import apiClient from './apiClient';
-
+//fetches book/rating endpoints from backend
 
 export const getAllBooks =()=>{
     return apiClient.get('/api/books/All');
 }
 export const getBookById = (id) => {
     return apiClient.get(`/api/books/id/${id}`);
+}
+export const getRatingById=(id)=>{
+  return apiClient.get(`/api/rating/getRatingAvg/${id}`);
+}
+export const getCommentsById=(id)=>{
+  return apiClient.get(`/api/rating/getAllComment/${id}`);
+}
+export const getAvgRatingById=(id)=>{
+  return apiClient.get(`/api/rating/getRatingAvg/${id}`);
 }
 export const getBookByName = (bookName) =>{
     return apiClient.get(`/api/title/${bookName}`);
@@ -16,6 +25,7 @@ export const getBookByFirstName = (firstName) =>{
 export const getBookByLastName = (lastName) =>{
     return apiClient.get(`/api/books/lastName/${lastName}`);
 }
+
 export const createBook =(bookData)=>{
     return apiClient.post('/api/create/book', bookData);
 };

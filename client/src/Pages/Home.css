@@ -30,7 +30,7 @@
   transition: transform 0.3s, box-shadow 0.3s;
   border: 3px groove #6E2127;
   border-radius: 20px;
-  overflow: hidden;
+  padding: 15px;
 }
 
 .book-card:hover {
@@ -46,32 +46,33 @@
 }
 
 .book-info {
-  padding: 10px;
+  padding: 15px;
   background-color: #F5E6C8;
   border-top: 2px dashed #6E2127;
 }
 
 .book-info h3 {
   color: #6E2127;
-  margin-bottom: 15px;
-  font-size: 17px;
+  margin-bottom: 40px;
+  font-size: 20px;
   font-weight: bold;
   text-align: center;
   height: 25px;
 }
 
-.book-info .author {
+.author {
   color: #613e05;
   margin: 0;
-  font-size: 17px;
-  text-align: center;
+  font-size: 22px;
+ text-align: center;
 }
 
 .book-info .price {
   color: #613e05;
-  font-size: 17px;
+  font-size: 20px;
   font-weight: bold;
   text-align: center;
+  padding-bottom: 17px;
 }
 
 .book-info .addtocart {

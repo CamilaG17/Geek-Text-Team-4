@@ -6,9 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.BookStore.BookRating.BookRatingInfoRepo;
-
-
 @RestController
 @RequestMapping("/api")  // this is the base URL for all the endpoints in this class
 public class BookController {
