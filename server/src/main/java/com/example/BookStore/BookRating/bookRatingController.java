@@ -38,16 +38,11 @@ public class bookRatingController {
 public ResponseEntity<?> getRatingAvg(@PathVariable long bookID) {
     try {
         OptionalDouble averageOpt = ratingService.getRatingAvg(bookID);
-        int count = ratingService.getRatingCount(bookID);
-        
-        
         double average = averageOpt.isPresent() ? averageOpt.getAsDouble() : 0.0;
-        
      
         Map<String, Object> response = new HashMap<>();
         response.put("average", average);
-        response.put("count", count);
-        
+
         return ResponseEntity.ok(response);
     } catch (Exception e) {
         e.printStackTrace();

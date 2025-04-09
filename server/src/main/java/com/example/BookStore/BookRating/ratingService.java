@@ -16,16 +16,34 @@ public class ratingService {
 
     public void postRating(long bookID, String userID, int rating){
         List<BookRatingInfo> bookRating = bookRepo.findByBookIDAndUserID(bookID, userID);
-        
-        BookRatingInfo ratingInfo = bookRating.get(0);
-        ratingInfo.setRating(rating);
+         if(!bookRating.isEmpty()){
+             BookRatingInfo ratingInfo = bookRating.get(0);
+             ratingInfo.setRating(rating);
+         }else{
+             BookRatingInfo newRatingInfo = new BookRatingInfo();
+             newRatingInfo.setBookID(bookID);
+             newRatingInfo.setUserID(userID);
+             newRatingInfo.setRating(rating);
+
+             bookRepo.save(newRatingInfo);
+         }
+
     }
 
     public void postComment(long bookID, String userID, String comment){
         List<BookRatingInfo> bookRating = bookRepo.findByBookIDAndUserID(bookID, userID);
-        
-        BookRatingInfo commentInfo = bookRating.get(0);
-        commentInfo.setComment(comment);
+
+        if(!bookRating.isEmpty()){
+            BookRatingInfo ratingInfo = bookRating.get(0);
+            ratingInfo.setComment(comment);
+        }else{
+            BookRatingInfo newRatingInfo = new BookRatingInfo();
+            newRatingInfo.setBookID(bookID);
+            newRatingInfo.setUserID(userID);
+            newRatingInfo.setComment(comment);
+
+            bookRepo.save(newRatingInfo);
+        }
     }
 
     public List<Map<String, Object>> getAllCommentWithUsername(long bookID) {
@@ -53,9 +71,4 @@ public class ratingService {
         }
     }
 
-    public int getRatingCount(long bookID) {
-        return bookRepo.findByBookID(bookID).size();
-    }
-
-    
 }
