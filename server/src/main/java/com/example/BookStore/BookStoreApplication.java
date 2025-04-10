@@ -7,6 +7,8 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.lang.NonNull;
 
+import java.time.Clock;
+
 @SpringBootApplication
 public class BookStoreApplication {
     public static void main(String[] args) {
@@ -24,5 +26,9 @@ public WebMvcConfigurer corsConfigurer() {
                     .allowCredentials(true);
         }
     };
+}
+@Bean
+public Clock clock(){
+     return Clock.systemDefaultZone();
 }
 }

@@ -7,6 +7,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 
+import java.time.LocalDate;
+
 @Getter
 @Entity
 @Table(name = "bookrating") // Changed the table name to match shared database
@@ -20,6 +22,8 @@ public class BookRatingInfo {
     private Integer rating;
     @Column(name = "comment")// Changed the column name along with the type to match shared database.
     private String comment;
+    @Column(name = "date")
+    private LocalDate date;
 
     //Added get methods for the variables
     public void setBookID(Long bookID) {
@@ -49,4 +53,12 @@ public class BookRatingInfo {
     public String getComment() {
         return comment;
     }
+
+    public void setDate(LocalDate date){
+        this.date = date;
+    }
+    public LocalDate getDate(){
+        return date;
+    }
+
 }

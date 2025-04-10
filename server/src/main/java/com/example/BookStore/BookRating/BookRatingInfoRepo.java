@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BookRatingInfoRepo extends JpaRepository<BookRatingInfo, Long> {
     List<BookRatingInfo> findByBookID(Long bookID);
-    List<BookRatingInfo> findByBookIDAndUserID(Long bookID, String userID);
+    List<BookRatingInfo> findByUserID(String userID);
     
     @Query("SELECT AVG(r.rating) FROM BookRatingInfo r WHERE r.bookID = :bookId")
     Double getAverageRatingForBook(@Param("bookId") Long bookId);
