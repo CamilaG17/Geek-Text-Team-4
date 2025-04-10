@@ -107,3 +107,19 @@ nav {
     border-bottom: 6px solid #DCAC34 !important; 
     transform: scale(1.05); 
   }
+  .profile-container {
+    background: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+  }
+  
+  .profile-container * {
+    background: none !important;
+  }
+  
