@@ -1,7 +1,6 @@
 package com.example.BookStore.UserManagement;
 
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -30,10 +29,30 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public boolean updateUser(String username, User user) {
-        if (userRepository.existsById(username)) {
-            user.setUsername(username); // Ensure username is not changed
-            userRepository.save(user);
+    public boolean updateUser(String username, User userUpdates) {
+        Optional<User> optionalUser = userRepository.findById(username);
+        if (optionalUser.isPresent()) {
+            User existingUser = optionalUser.get();
+
+            if (userUpdates.getName() != null) {
+                existingUser.setName(userUpdates.getName());
+            }
+            if (userUpdates.getEmail() != null) {
+                existingUser.setEmail(userUpdates.getEmail());
+            }
+            if (userUpdates.getHomeaddress() != null) {
+                existingUser.setHomeaddress(userUpdates.getHomeaddress());
+            }
+
+            if (userUpdates.getPassword() != null) {
+                existingUser.setPassword(userUpdates.getPassword());
+            }
+
+            if (userUpdates.getCreditcard() != null) {
+                existingUser.setCreditcard(userUpdates.getCreditcard());
+            }
+
+            userRepository.save(existingUser);
             return true;
         }
         return false;
@@ -47,13 +66,13 @@ public class UserService {
         return false;
     }
 
-    // Add a credit card to a user
+
     public boolean addCreditCardToUser(String username, CreditCard creditCard) {
         Optional<User> userOptional = userRepository.findById(username);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
-            user.setCreditcard(creditCard.getCreditCardNumber()); // Set the credit card for the user
-            userRepository.save(user); // Save the user with the new credit card
+            user.setCreditcard(creditCard.getCreditCardNumber());
+            userRepository.save(user);
             return true;
         }
         return false;
