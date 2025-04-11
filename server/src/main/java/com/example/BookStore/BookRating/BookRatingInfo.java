@@ -1,30 +1,41 @@
 package com.example.BookStore.BookRating;
 
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 
 @Getter
 @Entity
-@Table(name = "bookrating") // Changed the table name to match shared database
+@Table(name = "bookrating")
 public class BookRatingInfo {
     @Id
-    @Column(name = "isbn") // Changed the column name along with the type to match shared database.
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id; // Added proper primary key
+    
+    @Column(name = "isbn")
     private Long bookID;
-    @Column(name = "username")// Changed the column name along with the type to match shared database.
+    
+    @Column(name = "username")
     private String userID;
-    @Column(name = "rating")// Changed the column name along with the type to match shared database.
+    
+    @Column(name = "rating")
     private Integer rating;
-    @Column(name = "comment")// Changed the column name along with the type to match shared database.
+    
+    @Column(name = "comment")
     private String comment;
 
-    //Added get methods for the variables
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
     public void setBookID(Long bookID) {
         this.bookID = bookID;
     }
+    
     public Long getBookID() {
         return bookID;
     }
@@ -32,20 +43,23 @@ public class BookRatingInfo {
     public void setUserID(String userID) {
         this.userID = userID;
     }
+    
     public String getUserID() {
         return userID;
     }
 
-    public void setRating(int rating) {
+    public void setRating(Integer rating) {
         this.rating = rating;
     }
-    public int getRating() {
+    
+    public Integer getRating() {
         return rating;
     }
 
     public void setComment(String comment) {
         this.comment = comment;
     }
+    
     public String getComment() {
         return comment;
     }

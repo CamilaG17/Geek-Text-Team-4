@@ -11,37 +11,39 @@ import java.util.stream.Collectors;
 
 @Service
 public class ratingService {
+    private final BookRatingInfoRepo bookRepo;
+
     @Autowired
-    private BookRatingInfoRepo bookRepo;
-
-    public void postRating(long bookID, String userID, int rating){
-        List<BookRatingInfo> bookRating = bookRepo.findByBookIDAndUserID(bookID, userID);
-         if(!bookRating.isEmpty()){
-             BookRatingInfo ratingInfo = bookRating.get(0);
-             ratingInfo.setRating(rating);
-         }else{
-             BookRatingInfo newRatingInfo = new BookRatingInfo();
-             newRatingInfo.setBookID(bookID);
-             newRatingInfo.setUserID(userID);
-             newRatingInfo.setRating(rating);
-
-             bookRepo.save(newRatingInfo);
-         }
-
+    public ratingService(BookRatingInfoRepo bookRepo) {
+        this.bookRepo = bookRepo;
     }
 
-    public void postComment(long bookID, String userID, String comment){
+    public void postRating(long bookID, String userID, int rating) {
         List<BookRatingInfo> bookRating = bookRepo.findByBookIDAndUserID(bookID, userID);
+        if (!bookRating.isEmpty()) {
+            BookRatingInfo ratingInfo = bookRating.get(0);
+            ratingInfo.setRating(rating);
+            bookRepo.save(ratingInfo); // Added save for update
+        } else {
+            BookRatingInfo newRatingInfo = new BookRatingInfo();
+            newRatingInfo.setBookID(bookID);
+            newRatingInfo.setUserID(userID);
+            newRatingInfo.setRating(rating);
+            bookRepo.save(newRatingInfo);
+        }
+    }
 
-        if(!bookRating.isEmpty()){
+    public void postComment(long bookID, String userID, String comment) {
+        List<BookRatingInfo> bookRating = bookRepo.findByBookIDAndUserID(bookID, userID);
+        if (!bookRating.isEmpty()) {
             BookRatingInfo ratingInfo = bookRating.get(0);
             ratingInfo.setComment(comment);
-        }else{
+            bookRepo.save(ratingInfo); // Added save for update
+        } else {
             BookRatingInfo newRatingInfo = new BookRatingInfo();
             newRatingInfo.setBookID(bookID);
             newRatingInfo.setUserID(userID);
             newRatingInfo.setComment(comment);
-
             bookRepo.save(newRatingInfo);
         }
     }
@@ -61,8 +63,16 @@ public class ratingService {
 
     public OptionalDouble getRatingAvg(long bookID) {
         try {
+            // Try using repository method first
+            Double avgRating = bookRepo.getAverageRatingForBook(bookID);
+            if (avgRating != null) {
+                return OptionalDouble.of(avgRating);
+            }
+            
+            // Fall back to manual calculation if needed
             List<BookRatingInfo> bookRating = bookRepo.findByBookID(bookID);
             return bookRating.stream()
+                .filter(item -> item.getRating() != null) // Added null check
                 .mapToDouble(item -> item.getRating())
                 .average();
         } catch (Exception e) {
@@ -70,5 +80,13 @@ public class ratingService {
             return OptionalDouble.empty();
         }
     }
-
+    
+    public int getRatingCount(long bookID) {
+        try {
+            return bookRepo.countByBookID(bookID);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
 }

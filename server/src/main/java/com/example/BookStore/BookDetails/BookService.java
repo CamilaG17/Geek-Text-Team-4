@@ -3,12 +3,16 @@ package com.example.BookStore.BookDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import jakarta.transaction.Transactional;
 
 @Service
 public class BookService {
 
     @Autowired
     private Bookrepository bookRepository;
+    
+    @Autowired
+    private Authorrepository authorRepository;
 
     public List<Book> getAllBooks() {
         // Use a method that ensures authors are loaded
@@ -42,8 +46,14 @@ public class BookService {
         return bookRepository.findByAuthorLastName(lastName);
     }
 
+    @Transactional
     public Book saveBook(Book book) {
+        // Check for authorId and set the Author before saving
+        if (book.getAuthorId() != null) {
+            Author author = authorRepository.findById(book.getAuthorId())
+                .orElseThrow(() -> new RuntimeException("Author not found with ID: " + book.getAuthorId()));
+            book.setAuthor(author);
+        }
         return bookRepository.save(book);
     }
-    
 }
