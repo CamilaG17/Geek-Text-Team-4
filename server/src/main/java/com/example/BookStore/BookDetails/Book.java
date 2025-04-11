@@ -96,6 +96,16 @@ public class Book {
     public void setAverageRating(Double averageRating) {
         this.averageRating = averageRating;
     }
+    @Transient
+private Long authorId;
+
+public Long getAuthorId() {
+    return authorId;
+}
+
+public void setAuthorId(Long authorId) {
+    this.authorId = authorId;
+}
 
    
 }

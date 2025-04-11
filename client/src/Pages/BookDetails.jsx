@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getBookById,getRatingById,getCommentsById} from '../Services/bookService';
+import { getBookById, getRatingById, getCommentsById } from '../Services/bookService';
 import { useParams, useNavigate } from 'react-router-dom';
 import StarRating from '../Components/StarRating/StarRating';
 import './BookDetails.css';
@@ -18,20 +18,34 @@ const BookDetails = () => {
       try {
         setLoading(true);
         
-  
+        // Get book data - this is critical
         const bookResponse = await getBookById(isbn);
         setBook(bookResponse.data);
         
-       
-        const ratingResponse = await getRatingById(isbn);
-        setRatings({
-          average: ratingResponse.data.average || 0,
-          count: ratingResponse.data.count || 0
-        });
+        // Try to get ratings, but don't fail if there's an error
+        try {
+          const ratingResponse = await getRatingById(isbn);
+          if (ratingResponse && ratingResponse.data) {
+            setRatings({
+              average: ratingResponse.data.average || 0,
+              count: ratingResponse.data.count || 0
+            });
+          }
+        } catch (ratingErr) {
+          console.error('Error fetching ratings:', ratingErr);
+          // Keep default values
+        }
         
-        
-        const commentsResponse = await getCommentsById(isbn);
-        setComments(commentsResponse.data || []);
+        // Try to get comments, but don't fail if there's an error
+        try {
+          const commentsResponse = await getCommentsById(isbn);
+          if (commentsResponse && commentsResponse.data) {
+            setComments(commentsResponse.data || []);
+          }
+        } catch (commentsErr) {
+          console.error('Error fetching comments:', commentsErr);
+          // Keep default values
+        }
         
         setLoading(false);
       } catch (err) {

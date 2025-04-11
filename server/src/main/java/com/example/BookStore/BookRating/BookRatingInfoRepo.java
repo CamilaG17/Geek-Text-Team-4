@@ -12,7 +12,7 @@ public interface BookRatingInfoRepo extends JpaRepository<BookRatingInfo, Long> 
     List<BookRatingInfo> findByBookID(Long bookID);
     List<BookRatingInfo> findByBookIDAndUserID(Long bookID, String userID);
     
-    @Query("SELECT AVG(r.rating) FROM BookRatingInfo r WHERE r.bookID = :bookId")
+    @Query("SELECT AVG(r.rating) FROM BookRatingInfo r WHERE r.bookID = :bookId AND r.rating IS NOT NULL")
     Double getAverageRatingForBook(@Param("bookId") Long bookId);
     
     @Query("SELECT COUNT(r) FROM BookRatingInfo r WHERE r.bookID = :bookId")
