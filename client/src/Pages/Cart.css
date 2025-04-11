@@ -1,0 +1,51 @@
+.cart-page-wrapper {
+    padding-top: 160px;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+  }
+  
+  .cart-container {
+    max-width: 800px;
+    width: 100%;
+    background-color: transparent; /* Change this from #fff8f0 if you want no card */
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: left;
+  }
+  
+  .cart-book-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .cart-book-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 1rem;
+  }
+  
+  .cart-book-item button {
+    background-color: #6E2127;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .cart-summary {
+    margin-top: 2rem;
+    font-size: 1.1rem;
+  }
+  
+  .cart-login-box {
+    background-color: #fff8f0;
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  }
+  

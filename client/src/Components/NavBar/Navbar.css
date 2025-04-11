@@ -122,4 +122,18 @@ nav {
   .profile-container * {
     background: none !important;
   }
+  .cart-container {
+    background: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
   
+  .cart-container * {
+    background: none !important;
+  }
+    

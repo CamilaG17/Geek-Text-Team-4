@@ -34,13 +34,33 @@ const Profile = () => {
     setIsLoggedIn(true);
   };
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
-    // Call your backend signup API here
-    // Example: await createUser(formData)
-    localStorage.setItem('user', JSON.stringify({ username: formData.username }));
-    setIsLoggedIn(true);
+  
+    try {
+      const response = await fetch("http://localhost:5500/api/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData) // formData has username, email, password, address
+      });
+  
+      if (response.status === 201) {
+        // Successful signup!
+        localStorage.setItem("user", JSON.stringify({ username: formData.username }));
+        setIsLoggedIn(true);
+      } else {
+        const errText = await response.text();
+        console.error("Signup failed:", errText);
+        alert("Signup failed: " + errText);
+      }
+    } catch (error) {
+      console.error("Network error:", error);
+      alert("Something went wrong while signing up.");
+    }
   };
+  
 
   const handleLogout = () => {
     localStorage.removeItem('user');

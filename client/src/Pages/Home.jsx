@@ -10,6 +10,46 @@ const Home = () => {
   const [error, setError] = useState(null);// error state
   const [ratings, setRatings] = useState({}); // Store ratings for each book
   const navigate = useNavigate();
+  const [username, setUsername] = useState('');
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      setUsername(user.username);
+    }
+  }, []);
+  const handleAddToCart = async (isbn) => {
+  if (!username) {
+    alert("Please log in to add books to your cart.");
+    return;
+  }
+
+  try {
+    const response = await fetch("http://localhost:5500/api/cart/add", {
+      
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: "include",
+      body: JSON.stringify({ username, isbn })
+    });
+
+    if (response.ok) {
+      alert("Book added to cart!");
+    } else {
+      const errText = await response.text();
+      console.error("Add to cart failed:", errText); // 👈 show real message
+      alert(`Failed to add book: ${errText}`);
+    }
+  } catch (error) {
+    console.error("Network error:", error); // 👈 this prints the real problem
+    alert("Something went wrong (check console).");
+  }
+};
+
+
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -86,14 +126,14 @@ const Home = () => {
                     )}
                     <p className="price">Price: ${book.price ? book.price.toFixed(2) : '0.00'}</p>
                     <button 
-                      className="addtocart" //goes to cart on click
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        
-                      }}
-                    >
-                      Add to Cart
-                    </button>
+                      className="addtocart"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleAddToCart(book.isbn); // ✅ this adds the book
+                        }}
+                         >
+                          Add to Cart
+                          </button>
                   </div>
                 </div>
               ))
