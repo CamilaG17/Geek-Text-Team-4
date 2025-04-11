@@ -23,7 +23,6 @@ public class Wishlist {
 }
 
 */
-
 package com.example.BookStore.Wishlist;
 
 import com.example.BookStore.UserManagement.User;
@@ -35,7 +34,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
-@Data
+@Data  // This generates the getter/setter methods automatically
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "wishlists")
@@ -43,14 +42,25 @@ public class Wishlist {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id;  // Wishlist ID
 
-    private String name;
+    private String name;  // Wishlist name
 
     @ManyToOne
     @JoinColumn(name = "username", referencedColumnName = "username")
-    private User user;
+    private User user;  // Associated user for the wishlist
 
     @OneToMany(mappedBy = "wishlist", cascade = CascadeType.ALL)
-    private List<WishlistBook> books;
+    private List<WishlistBook> books;  // Books in this wishlist
+
+    public void setName(String name) {
+        this.name = name;
+
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+
 }
