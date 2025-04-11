@@ -5,10 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Clock;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.OptionalDouble;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,8 +45,13 @@ public class ratingService {
 
     public List<Map<String, Object>> getAllCommentWithUsername(long bookID) {
         List<BookRatingInfo> bookRating = bookRepo.findByBookID(bookID);
+        Set<String> seen = new HashSet<>();
+
         return bookRating.stream()
-            .filter(info -> info.getComment() != null && !info.getComment().isEmpty())
+            .filter(info -> {
+                String key = info.getUserID() + "::" + info.getComment();
+                return info.getComment() != null && !info.getComment().isEmpty() && seen.add(key);
+            })
             .map(info -> {
                 Map<String, Object> commentData = new HashMap<>();
                 commentData.put("text", info.getComment());
@@ -70,5 +72,6 @@ public class ratingService {
             return OptionalDouble.empty();
         }
     }
+
 
 }
